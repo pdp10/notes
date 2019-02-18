@@ -1,13 +1,4 @@
-# Vim Commands
-The following is a list of frequently used commands and what they do. Many of 
-the commands can be made to repeat by adding a number to the command. This is 
-not an exhaustive list because more advanced commands, such as how to use 
-multiple buffers, are not included. However, just about all of the basic 
-commands for opening, editing and saving documents are included as well as 
-commands that enable you to find and replace text and work with multiple 
-documents.
-
-
+# Vim
 
 ### Basic Commands
 The most simple commands allow you to open and close documents as well as 
@@ -142,9 +133,11 @@ Outside Vim:
 - Select and copy/cut text to clipboard. Type "+p to paste in Vim (normal mode). 
 
 Note:
+```
 "       - means "use register"
 + and * - are Vim registers. In Linux, + corresponds to the desktop clipboard, 
           while * corresponds to the X11 primary selection.
+```
 
 Useful commands:
 ```
@@ -237,12 +230,16 @@ d (or x)  - remove the comments
 
 ### Advanced Vim commands
 Most commands can be used using the following general format: 
+```
 <start position><command><end position>. 
+```
 
 For example, 0y$ means
+```
 0 - go to the beginning of this line
 y - yank from here
 $ - up to the end of this line
+```
 
 We also can do things like ye, yank from here to the end of the word. But also 
 y2/foo yank up to the second occurrence of “foo”.
