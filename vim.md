@@ -152,9 +152,11 @@ gg"+yG : copy the entire buffer into + (normal mode)
 ```
 
 ##### Insert mode variation
+```
 a - insert after the cursor
 o - insert a new line after the current one
 O - insert a new line before the current one
+```
 
 
 
@@ -166,9 +168,9 @@ confirm each replacement depending on how you put in the command.
 
 ##### Search
 ```
-/word - Searches for text in the document where word is whatever keyword, phrase 
-or string of characters you're looking for
-?word - Searches previous text for your word, phrase or character string
+/word     - Searches for text in the document where word is whatever keyword, 
+            phrase or string of characters you're looking for
+?word     - Searches previous text for your word, phrase or character string
 /\<word\> - searches for the exact word, where 'word' is bounded by word 
             boundaries (e.g. space, dash)
 n - Searches your text again in whatever direction your last search/vep/
@@ -178,8 +180,8 @@ N - Searches your text again in the opposite direction
 
 ##### Replace
 ```
-:%s/[pattern]/[replacement]/g - This replaces all occurrences of a pattern 
-                                without confirming each one
+:%s/[pattern]/[replacement]/g  - This replaces all occurrences of a pattern 
+                                 without confirming each one
 :%s/[pattern]/[replacement]/gc - Replaces all occurrences of a pattern and 
                                  confirms each one
 
