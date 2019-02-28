@@ -34,3 +34,62 @@ grep --include=*.py -rnwl '.' -e "def" | xargs sed -i 's/\bdef\b/DEF/g'
 grep --include=*.py -rnw '.' -e "DEF"
 ```
 
+
+### conda
+```bash
+# install miniconda (note: py27 can be installed with miniconda3)
+wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh
+
+# update conda and packages
+conda update conda 
+conda update --all
+
+# create a new py36 environment
+conda create -n py36 python=3.6 pip pytest
+
+# create a new environment from YAML config file 
+conda env create --file environment.yml
+
+# activate/deactivate py36 environment
+conda activate py36
+deactivate
+
+# delete an environment 
+conda env remove -n py36 --all
+
+# show conda info
+conda info
+
+# list the available environments 
+conda info --envs
+
+# list the packages installed in this environment
+conda list
+
+# search / install / uninstall a package in this environment
+conda search pandas
+conda install pandas
+conda uninstall pandas -n py36
+
+# add channels (e.g. conda-forge, bioconda)
+conda config --add channels CHANNELNAME
+```
+
+
+### virtualenv
+```bash
+# install virtualenv
+pip install virtualenv --user
+
+# create a new virtualenv called venv
+virtualenv venv
+
+# activate the environment venv
+source venv/bin/activate
+
+# install py packages in venv
+pip install <package_name>
+
+# leave venv
+deactivate
+```

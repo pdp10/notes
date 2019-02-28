@@ -149,6 +149,9 @@ gg"+yG : copy the entire buffer into + (normal mode)
 a - insert after the cursor
 o - insert a new line after the current one
 O - insert a new line before the current one
+
+r - replace command. e.g. rx to replace the char at the cursor with x
+c - change operator. e.g. ce to change until the end of a word
 ```
 
 
@@ -229,23 +232,18 @@ d (or x)  - remove the comments
 
 
 ### Advanced Vim commands
-Most commands can be used using the following general format: 
+Combination of a command with positions `start [operator] end`: 
 ```
-<start position><command><end position>. 
-```
-
-For example, 0y$ means
-```
-0 - go to the beginning of this line
-y - yank from here
-$ - up to the end of this line
+0y$ - yank from the beginning of the current line to the end of the file
 ```
 
-We also can do things like ye, yank from here to the end of the word. But also 
-y2/foo yank up to the second occurrence of “foo”.
-But what was true for y (yank), is also true for d (delete), v (visual select), 
-gU (uppercase), gu (lowercase), etc
+Combination of a command with a count `operator [number] motion`:
 ```
+d2w    - delete 2 words
+y3w    - yank 3 words
+c$     - change text from the cursor to the end of the line
+c3w    - change the next 3 words with new text
+y2/foo - yank up to the second occurence of foo
 ggyG   - Yank the whole current buffer
 gg"+yG - Yank the whole current buffer to clipboard
 ```
