@@ -39,6 +39,21 @@ $DIR=$(kubectl get pv PERMANENT_VOLUME -o json | jq -r .field1.field2.field3)
 kubectl cp example.vcf $POD:$DIR
 
 
+# get details about nodes 
+kubectl describe nodes
+
+
+# get details about a pod. This gives details about pod history etc.
+kubectle describe pods POD_NAME
+
+
+# To update a deployment with the latest (dev) docker image: 
+# 1. go to CircleCI and click on "test_and_build"
+# 2. go to 'release_image' and copy the docker image at the end
+# 3. run `kubectl edit deployments DEPLOYMENT_NAME` (this opens a Vim screen)
+# 4. paste the docker image in the file and save (the pod will update automatically)
+
+
 # misc get commands
 kubectl get events | pods | jobs | services | deployments | network
 ```

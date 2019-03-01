@@ -29,12 +29,18 @@ docker build -t samtools -f Dockerfile .
 ### exec
 
 ```bash
-# create a container for the image samtools in background (-d => `detached`). 
+# create a container for a docker image:tag in background (-d => `detached`). 
 # This returns the long container ID
-docker run -it -d samtools:latest
+docker run -it -d <image>:<tag>
 
 # see the container. Get the container id
 docker container ls
+
+# copy a file to a container
+docker cp <my_file> <container_id>:<file_path>
+
+# access the container via bash
+docker exec -it <container_id> /bin/bash
 
 # if no container appears, check the logs
 docker logs <long_container_id>
