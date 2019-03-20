@@ -5,6 +5,11 @@
 kubectl get jobs
 kubectl get pods
 
+# get kubernetes virtual clusters (namespaces)
+kubectl get namespaces
+# change the kubernetes cluster (e.g. to default)
+kubectl config set-context $(kubectl config current-context) --namespace=default
+
 
 # get the available configmaps
 kubectl get configmaps

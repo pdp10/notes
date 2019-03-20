@@ -24,32 +24,41 @@ docker push IMAGE
 docker build -t samtools -f Dockerfile .
 ```
 
+### remove
+```
+docker rmi <IMAGE>
+
+docker stop <CONTAINER_ID>
+docker rm <CONTAINER_ID>
+```
 
 
-### exec
+### docker run and docker exec (only executes)
+docker run runs a command in a new container that does not currently exist.
+docker exec runs a command in an existing container.
 
 ```bash
 # create a container for a docker image:tag in background (-d => `detached`). 
 # This returns the long container ID
 docker run -it -d <image>:<tag>
 
-# see the container. Get the container id
-docker container ls
+# get container-id by docker image name (e.g. intrepid_pasteur. a=all, q=quiet, f=filter)
+CONTAINER_ID=$(docker ps -aqf name=pasteur)
 
 # copy a file to a container
-docker cp <my_file> <container_id>:<file_path>
+docker cp <my_file> $CONTAINER_ID:<file_path>
 
 # access the container via bash
-docker exec -it <container_id> /bin/bash
-
-# if no container appears, check the logs
-docker logs <long_container_id>
+docker exec -it $CONTAINER_ID /bin/bash
 
 # TEST: Execute a command from the container
-docker exec -it <container_id_or_name> echo "Hello from container!"
+docker exec -it $CONTAINER_ID echo "Hello from container!"
+
+# if no container appears, check the logs
+docker logs $CONTAINER_ID
 
 # remove a container
-docker container rm <container_id>
+docker container rm $CONTAINER_ID
 ```
 
 
@@ -58,6 +67,15 @@ docker container rm <container_id>
 ```bash
 sudo groupadd docker
 sudo usermod -aG docker $USER
+```
+
+
+### Maintenance
+```bash
+# Remove unused dangling images
+docker image prune
+# Cleanup the system (unused containers, dangling images, ...)
+docker system prune
 ```
 
 
