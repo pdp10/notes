@@ -5,10 +5,15 @@
 kubectl get jobs
 kubectl get pods
 
-# get kubernetes virtual clusters (namespaces)
+
+# get/use context (cluster). This is used for switching between clusters.
+kubectl config get-contexts
+kubectl config use-context <CONTEXT_NAME>
+# one context can have multiple namespaces. 
+# get the namespaces for the current context
 kubectl get namespaces
-# change the kubernetes cluster (e.g. to default)
-kubectl config set-context $(kubectl config current-context) --namespace=default
+# one can set the default namespace for a certain context
+kubectl config set-context $(kubectl config current-context) --namespace=NAMESPACE
 
 
 # get the available configmaps
