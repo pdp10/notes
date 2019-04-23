@@ -24,6 +24,10 @@ git remote set-url origin git+ssh://git@github.com/username/reponame.git
 
 ### git cherry-pick
 To choose git commits manually
+```
+git checkout branch_name
+git cherry-pick <COMMIT>
+```
 
 
 ### Git rebase
