@@ -58,7 +58,7 @@ G          - Place the cursor at the end of the file
 
 %           - Go to the corresponding (, {, [.
 * (resp. #) - go to next (resp. previous) occurrence of the word under the 
-              cursor (QUICK WORD SEARCH - VERY USEFUL)i
+              cursor (QUICK WORD SEARCH - VERY USEFUL)
 
 :noh - remove highlightings 
 ```
@@ -285,7 +285,9 @@ as a few keystrokes.
 :buffers - list the current buffers
 :bn - Switch to next buffer
 :bp - Switch to previous buffer
-:bd - Close a buffer
+:bd - Close the current buffer
+:bd N - Close buffer N
+:bN - Switch to buffer N
 
 :sp [filename]  - Opens a new file and splits your screen horizontally to show 
                   more than one buffer
