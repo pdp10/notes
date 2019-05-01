@@ -6,7 +6,7 @@ saving them. As with most other text editors, there are protections in place to
 help you avoid exiting the editor without having saved what you're working on.
 
 ```
-:help [keyword] - Performs a search of help documentation for whatever keyword 
+:h [keyword]    - Performs a search of help documentation for whatever keyword 
 you enter
 :e [file]       - Opens a file, where [file] is the name of the file you want 
                   opened
