@@ -295,6 +295,7 @@ as a few keystrokes.
                   more than one buffer
 :ls - Lists all open buffers
 
+ctrl+G  - See current work directory
 ctrl+ws - Split windows horizontally
 ctrl+wv - Split windows vertically
 ctrl+ww - Switch between windows
