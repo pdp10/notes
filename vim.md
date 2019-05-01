@@ -282,7 +282,7 @@ switch back and forth between documents. As with other functions, commands make
 going between documents or buffers, as they're referred to with Vim, as simple 
 as a few keystrokes.
 ```
-:buffers - list the current buffers
+:ls - list all opened buffers (also :buffers)
 :bn - Switch to next buffer
 :bp - Switch to previous buffer
 :bd - Close the current buffer
@@ -293,7 +293,6 @@ as a few keystrokes.
                   more than one buffer
 :vsp [filename] - Opens a new file and splits your screen vertically to show 
                   more than one buffer
-:ls - Lists all open buffers
 
 ctrl+G  - See current work directory
 ctrl+ws - Split windows horizontally
