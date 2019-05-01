@@ -298,6 +298,7 @@ as a few keystrokes.
 ctrl+ws - Split windows horizontally
 ctrl+wv - Split windows vertically
 ctrl+ww - Switch between windows
+ctrl+wr - Reverse buffers
 ctrl+wc - Close a window without killing the buffer
 ctrl+wq - Quit a window
 
