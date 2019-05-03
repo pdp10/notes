@@ -1,6 +1,18 @@
 # Git
 
 
+### Git diff / difftool
+Instead of using git diff, use git difftool --tool=vimdiff.
+The following code sets `vimdiff` as default tool:
+```
+git config --global diff.tool vimdiff
+git config --global merge.tool vimdiff
+# switch off the prompt at start
+git config --global --add difftool.prompt false
+```
+git difftool <DEV_BRANCH> -- <FILE>
+```
+
 ### Connecting to GitHub with ssh
 Guide: https://help.github.com/articles/connecting-to-github-with-ssh/
 If you already have your SSH keys set up and are still getting the password 
@@ -27,6 +39,15 @@ To choose git commits manually
 ```
 git checkout branch_name
 git cherry-pick <COMMIT>
+```
+
+
+### Search for commits including a certain keyword in the log and checkout the commit
+```
+# find a modification in git history
+git log --pickaxe-regex -p --color-words -S "text to search"
+# check out a particular commit.
+git checkout <COMMIT-SHA1>
 ```
 
 
