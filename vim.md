@@ -54,7 +54,7 @@ L - Puts the cursor at the bottom of the screen
 
 gg (or 1G) - Place the cursor at the start of the file
 G          - Place the cursor at the end of the file
-#G         - Place the cursor to line #
+:# (or #G) - Place the cursor to line #
 
 %           - Go to the corresponding (, {, [.
 * (resp. #) - go to next (resp. previous) occurrence of the word under the 
@@ -85,7 +85,7 @@ Visual mode allows you to select a block of text in Vim:
 v       - starts visual mode, you can then select a range of text, and run a 
           command 
 V       - starts linewise visual mode (selects entire lines) 
-h j k l - move to select some text. Also see Vim movements.
+h j k l - move to select some text. In addition, see section Movements.
 aw      - select the word where the cursor is
 ```
 Then, in normal mode:
@@ -234,7 +234,7 @@ d (or x)  - remove the comments
 ### Advanced Vim commands
 Combination of a command with positions `start [operator] end`: 
 ```
-0y$ - yank from the beginning of the current line to the end of the file
+0y$ - yank from the beginning of the current line to the end of the line
 ```
 
 Combination of a command with a count `operator [number] motion`:
