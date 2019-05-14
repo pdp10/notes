@@ -10,6 +10,7 @@ help you avoid exiting the editor without having saved what you're working on.
 you enter
 :e [file]       - Opens a file, where [file] is the name of the file you want 
                   opened
+:e              - reload the current file
 :w              - Saves the file you are working on
 :w [filename]   - Allows you to save your file with the name you've defined
 :wq             - Save your file and close Vim
@@ -45,8 +46,8 @@ $ - Places the cursor at the end of a line
 } - Takes you to the start of the next paragraph or block of text
 { - Takes you to the start of the previous paragraph or block of text
 
-Ctrl+f - Takes you one page forward
-Ctrl+b - Takes you one page back
+<C-f> - Takes you one page forward
+<C-b> - Takes you one page back
 
 H - Puts the cursor at the top of the screen
 M - Puts the cursor in the middle of the screen
@@ -116,7 +117,7 @@ dG        - Delete (cut) from where your cursor is to the end of the file
 x - Deletes a single character
 
 u      - Undo the last operation; u# allows you to undo multiple actions
-Ctrl+r - Redo the last undo
+<C-r> - Redo the last undo
 .      - Repeats the last action
 ```
 
@@ -125,8 +126,8 @@ To enable yank/cut/paste to/from clipboard (e.g. yank text from vim and paste
 outside vim), install: vim-gnome or vim-gtk. 
 
 In VIM (normal mode):
-- select text (v) and type "+y to copy to clipboard. Press Ctrl+v outside Vim
-- select text (v) and type "+d (or "+x) to cut to clipboard. Press Ctrl+v 
+- select text (v) and type "+y to copy to clipboard. Press <C-v> outside Vim
+- select text (v) and type "+d (or "+x) to cut to clipboard. Press <C-v> 
   outside Vim
 
 Outside Vim:
@@ -214,7 +215,7 @@ Others need to be escaped to be to be used as part of a regular expression:
 To comment:
 ```
 (normal mode)
-ctrl+v    - enter in visual block mode
+<C-v>    - enter in visual block mode
 j k       - select lines to comment. See Vim movements
 Shift+i # - (capital I) insert the character used for commenting a block of 
             code. Here '#'
@@ -224,7 +225,7 @@ Esc+Esc   - comment the block
 To uncomment:
 ```
 (normal mode)
-ctrl+v    - enter in visual block mode
+<C-v>    - enter in visual block mode
 j k       - select lines to uncomment. See Vim movements
 d (or x)  - remove the comments
 ```
@@ -294,18 +295,19 @@ as a few keystrokes.
 :vsp [filename] - Opens a new file and splits your screen vertically to show 
                   more than one buffer
 
-ctrl+G  - See current work directory
-ctrl+ws - Split windows horizontally
-ctrl+wv - Split windows vertically
-ctrl+ww - Switch between windows
-ctrl+wr - Reverse buffers
-ctrl+wc - Close a window without killing the buffer
-ctrl+wq - Quit a window
+<C-G>   - See current work directory
+<C-w> s - Split windows horizontally
+<C-w> v - Split windows vertically
+<C-w> = - Resize windows to equal dimensions, automatically
+<C-w> w - Switch between windows
+<C-w> r - Reverse buffers
+<C-w> c - Close a window without killing the buffer
+<C-w> q - Quit a window
 
-Ctrl+wh - Moves your cursor to the window to the left
-Ctrl+wl - Moves your cursor to the window to the right
-Ctrl+wj - Moves your cursor to the window below the one you're in
-Ctrl+wk - Moves your cursor to the window above the one you're in
+<C-w> h - Moves your cursor to the window to the left
+<C-w> l - Moves your cursor to the window to the right
+<C-w> j - Moves your cursor to the window below the one you're in
+<C-w> k - Moves your cursor to the window above the one you're in
 ```
 
 ##### Tab Pages
