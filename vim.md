@@ -121,6 +121,13 @@ u      - Undo the last operation; u# allows you to undo multiple actions
 .      - Repeats the last action
 ```
 
+##### Insertion mode
+Autocompletion: 
+```
+<C-n> - complete the word, repeating moves forward
+<C-p> - as above, but repeating moves backword
+```
+
 ##### Editing to/from outside Vim
 To enable yank/cut/paste to/from clipboard (e.g. yank text from vim and paste 
 outside vim), install: vim-gnome or vim-gtk. 
@@ -217,9 +224,9 @@ To comment:
 (normal mode)
 <C-v>    - enter in visual block mode
 j k       - select lines to comment. See Vim movements
-Shift+i # - (capital I) insert the character used for commenting a block of 
+Shift-i # - (capital I) insert the character used for commenting a block of 
             code. Here '#'
-Esc+Esc   - comment the block
+Esc-Esc   - comment the block
 ```
 
 To uncomment:
@@ -337,5 +344,11 @@ Shows the files from the current location
 Split the window horizontally and start a terminal. 
 ```
 :term (or :terminal)
+
+# to access the text (e.g. yank/paste, scrolling), enter in terminal mode:
+<C-w> N  - (uppercase N), visualise the terminal content in a buffer. Usual 
+           Vim commands are possible
+i,a      - return to terminal
+
 ```
 
