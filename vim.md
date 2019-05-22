@@ -224,8 +224,7 @@ To comment:
 (normal mode)
 <C-v>    - enter in visual block mode
 j k       - select lines to comment. See Vim movements
-Shift-i # - (capital I) insert the character used for commenting a block of 
-            code. Here '#'
+I #       - (capital I) comment a code block with '#'
 Esc-Esc   - comment the block
 ```
 
