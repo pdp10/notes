@@ -32,6 +32,11 @@ docker stop <CONTAINER_ID>
 docker rm <CONTAINER_ID>
 ```
 
+These commands can be done for all containers: 
+```
+docker stop $(docker ps -a -q)
+docker rm $(docker ps -a -q)
+```
 
 ### docker run and docker exec (only executes)
 docker run runs a command in a new container that does not currently exist.
