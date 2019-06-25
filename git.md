@@ -9,7 +9,7 @@ git config --global diff.tool vimdiff
 git config --global merge.tool vimdiff
 # switch off the prompt at start
 git config --global --add difftool.prompt false
-```
+
 git difftool <DEV_BRANCH> -- <FILE>
 ```
 
@@ -39,6 +39,12 @@ To choose git commits manually
 ```
 git checkout branch_name
 git cherry-pick <COMMIT>
+```
+
+
+### Update the local list of remote branches: 
+```
+git remote update origin --prune
 ```
 
 
