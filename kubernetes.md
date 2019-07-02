@@ -63,7 +63,7 @@ kubectle describe pods POD_NAME
 # To update a deployment with the latest (dev) docker image: 
 # 1. go to CircleCI and click on "test_and_build"
 # 2. go to 'release_image' and copy the docker image at the end
-# 3. run `kubectl edit deployments DEPLOYMENT_NAME` (this opens a Vim screen)
+# 3. kubectl edit deployments DEPLOYMENT_NAME (this opens a Vim screen)
 # 4. paste the docker image in the file and save (the pod will update automatically)
 
 
@@ -72,139 +72,8 @@ kubectl get events | pods | jobs | services | deployments | network | secrets
 ```
 
 
-
-### Create POD from file
-This allows arbitrary checkouts in k8s (without needing a docker rebuild). 
-See file: piero-pod.yaml
-
+### USEFUL kubectl/jq commands 
 ```bash
-# 1. One off. Create your own folder in scratch
-kubectl exec -it JR_POD /bin/bash
-mkdir /scratch/piero
-
-# 2. Copy your arbitrary local checkout to /scratch in the cluster (NOTE: scratch is shared, therefore it does not have to be job-runner)
-kubectl cp /path/to/my/REPO JR_POD:/scratch/piero/REPO
-
-# 3. Create your pod using the yaml file attached here as a template. This uses a recent docker image.
-# When your pod starts, it replaces the /app from the docker image with your checkout in scratch, via a symlink.
-kubectl create -f piero-pod.yaml
-
-# 4. Attach to your pod, and run stuff (e.g. pipelines) 
-kubectl exec -it piero-pod /bin/bash
-```
-
-### File: piero-pod.yaml
-```yaml
-apiVersion: v1
-kind: Pod
-metadata:
-  labels:
-    submitterName: piero
-  name: piero-pod
-spec:
-  containers:
-  - command:
-    - /bin/bash
-    args:
-    - -c
-    - "rm -rf /app ; ln -s /scratch/personal/piero/REPO /app ; while true; do sleep 30; done;"
-    env:
-    - name: DANCER_APPDIR
-      value: /app
-    - name: DANCER_ENVIRONMENT
-      value: production
-    - name: FARM_NAME
-      value: kubernetes
-    - name: DB_HOST
-      valueFrom:
-        secretKeyRef:
-          key: clus_DB_HOST
-          name: db-config
-    - name: DB_NAME
-      valueFrom:
-        secretKeyRef:
-          key: clus_DB_NAME
-          name: db-config
-    - name: DB_PASSWORD
-      valueFrom:
-        secretKeyRef:
-          key: clus_DB_PASSWORD
-          name: db-config
-    - name: DB_PORT
-      valueFrom:
-        secretKeyRef:
-          key: clus_DB_PORT
-          name: db-config
-    - name: DB_USER
-      valueFrom:
-        secretKeyRef:
-          key: clus_DB_USER
-          name: db-config
-    - name: URL
-      valueFrom:
-        configMapKeyRef:
-          key: URL
-          name: JR-general-config
-    - name: SERVICE_TOKEN
-      valueFrom:
-        secretKeyRef:
-          key: SERVICE_TOKEN
-          name: JR-token
-    image: IMAGE:TAG
-    imagePullPolicy: IfNotPresent
-    name: piero-pod
-    resources:
-      limits:
-        cpu: "2"
-        memory: 12Gi
-      requests:
-        cpu: "2"
-        memory: 12Gi
-    terminationMessagePath: /dev/termination-log
-    terminationMessagePolicy: File
-    volumeMounts:
-    - mountPath: /data
-      name: ref-data
-    - mountPath: /scratch
-      name: scratch
-    - mountPath: /data/pipeline-ns/pipeline/output
-      name: pipeline-output-pvc-map
-    - mountPath: /data/pipeline-ns/pipeline/source
-      name: pipeline-source-pvc-map
-    workingDir: /scratch
-  dnsPolicy: ClusterFirst
-  nodeSelector:
-    farmNode: "true"
-  restartPolicy: Never
-  schedulerName: default-scheduler
-  securityContext: {}
-  volumes:
-  - name: ref-data
-    persistentVolumeClaim:
-      claimName: pipeline-ref-pvc
-  - name: scratch
-    persistentVolumeClaim:
-      claimName: pipeline-scratch-pvc
-  - name: pipeline-output-pvc-map
-    persistentVolumeClaim:
-      claimName: pipeline-output-pvc
-  - name: pipeline-source-pvc-map
-    persistentVolumeClaim:
-      claimName: pipeline-source-pvc
-```
-
-
-### update a deployment with the latest (dev) docker image: 
-```
-1. go to CircleCI and click on "test_and_build"
-2. go to 'release_image' and copy the docker image at the end
-3. run `kubectl edit deployments DEPLOYMENT_NAME` (this opens a Vim screen)
-4. paste the docker image in the file and save (the pod will update automatically)
-```
-
-
-## USEFUL kubectl/jq commands 
-```
 # get a explanation of a particular resource or field
 kubectl explain pods
 kubectl explain pv # persistent volumes
@@ -291,4 +160,27 @@ kubectl config set-context $(kubectl config current-context) --namespace=NAMESPA
 # look at jobs running in K8s, displaying job metadata such as pipeline name, IR, etc., as  columns using `-L`  (kjobs)
 kubectl get jobs -L pipelineName -L sapientiaJobId -L interpretationRequestId -L projectId -L timestamp -L submitterName
 ```
+
+
+
+### WORKFLOW: Create POD from file
+This allows arbitrary checkouts in k8s (without needing a docker rebuild). 
+See file: piero-pod.yaml
+
+```bash
+# 1. One off. Create your own folder in scratch
+kubectl exec -it JR_POD /bin/bash
+mkdir /scratch/piero
+
+# 2. Copy your arbitrary local checkout to /scratch in the cluster (NOTE: scratch is shared, therefore it does not have to be job-runner)
+kubectl cp /path/to/my/REPO JR_POD:/scratch/piero/REPO
+
+# 3. Create your pod using the yaml file attached here as a template. This uses a recent docker image.
+# When your pod starts, it replaces the /app from the docker image with your checkout in scratch, via a symlink.
+kubectl create -f piero-pod.yaml
+
+# 4. Attach to your pod, and run stuff (e.g. pipelines) 
+kubectl exec -it piero-pod /bin/bash
+```
+
 
