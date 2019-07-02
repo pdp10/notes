@@ -70,6 +70,11 @@ git checkout -
 git rebase -i dev
 ```
 
+## Git submodule
+```bash
+git submodule init
+git submodule update
+```
 
 ### Startup
 ```
