@@ -1,4 +1,4 @@
-# Vim
+# Neovim / Vim
 
 ### Basic Commands
 The most simple commands allow you to open and close documents as well as 
@@ -15,6 +15,7 @@ you enter
 :w [filename]   - Allows you to save your file with the name you've defined
 :wq             - Save your file and close Vim
 :q!             - Quit without first saving the file you were working on
+:qall           - Quit all buffers / tabs
 .               - Repeat the last change made in normal mode 
                  (e.g. after dw - delete word - press . to delete another word)
 @:              - repeat the last command-line change (a command invoked with :)
@@ -222,7 +223,7 @@ Others need to be escaped to be to be used as part of a regular expression:
 To comment:
 ```
 (normal mode)
-<C-v>    - enter in visual block mode
+<C-v>     - enter in visual block mode
 j k       - select lines to comment. See Vim movements
 I #       - (capital I) comment a code block with '#'
 Esc-Esc   - comment the block
@@ -271,32 +272,41 @@ dt" - remove everything until the ".
 ```
 
 
-### Buffers, Tabs, Sessions
+### Buffers, Windows, Tabs, Sessions
+```
+<C-G>   - See current work directory
+```
 
 ##### Buffers
 Buffers are created to work with more files at the same time.
 ```
-:ls - list all opened buffers (also :buffers)
-:bn - Switch to next buffer
-:bp - Switch to previous buffer
-:bd - Close the current buffer
-:bd N - Close buffer N
-:bN - Switch to buffer N
+:ls             - list all opened buffers (also :buffers)
+:bn             - Switch to next buffer
+:bp             - Switch to previous buffer
+:bd             - Close the current buffer
+:bd N           - Close buffer N
+:bN             - Switch to buffer N
 
 :sp [filename]  - Opens a new file and splits your screen horizontally to show 
                   more than one buffer
 :vsp [filename] - Opens a new file and splits your screen vertically to show 
                   more than one buffer
+```
 
-<C-G>   - See current work directory
+##### Windows
+Windows are views or containers of buffers. 
+One buffer can be contained in more windows.
+```
+<C-w> | - Maximise the current window
+<C-w> = - Resize windows to equal dimensions, automatically
 <C-w> s - Split windows horizontally
 <C-w> v - Split windows vertically
-<C-w> = - Resize windows to equal dimensions, automatically
-<C-w> w - Switch between windows
-<C-w> r - Reverse buffers
+
 <C-w> c - Close a window without killing the buffer
 <C-w> q - Quit a window
 
+<C-w> w - Switch between windows
+<C-w> r - Reverse buffers
 <C-w> h - Moves your cursor to the window to the left
 <C-w> l - Moves your cursor to the window to the right
 <C-w> j - Moves your cursor to the window below the one you're in
