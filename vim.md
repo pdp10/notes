@@ -240,20 +240,45 @@ d (or x)  - remove the comments
 
 
 ### Advanced Vim commands
-Combination of a command with positions `start [operator] end`: 
+
+##### Combination of an operator with positions: `start [operator] end`. 
+These are specific when the start and end position are known. E.g.:
 ```
-0y$ - yank from the beginning of the current line to the end of the line
+0y$    - yank from the beginning of the current line to the end of the line
+^y$    - yank from the first non blank of the current line to the end of the line
+ggyG   - Yank the whole current buffer
+gg"+yG - Yank the whole current buffer to clipboard
+HyM    - Yank the content from H to M. (H=high,M=middle,L=low buffer)
 ```
 
-Combination of a command with a count `operator [number] motion`:
+These commands are powerful when combined with marks:
+```
+:50    - go to L50
+ma     - create mark `a`
+:65    - go to L65
+mb     - create mark `b`
+'ay'b  - yank the content from line of mark `a` to line of mark `b`
+`ay'b  - yank the content from position (L:C) of mark `a` to line of mark `b`
+```
+
+#### Command: combination of an operator with a range: `:[range][operator]`.
+Useful when the cursor is NOT in place. E.g.:
+```
+:.,+4y  - yank from the current line and 4 lines below
+:-2,.y  - yank from two lines above and the current line
+:20,25d - delete lines 20-25
+```
+
+##### Combination of an operator with a count and motion: `operator [number] motion`. 
+Useful when the cursor is already in place. E.g.:
 ```
 d2w    - delete 2 words
 y3w    - yank 3 words
+d3j    - delete from the current line and 3 lines below
+y4j    - yank the previous 4 lines and the current one
 c$     - change text from the cursor to the end of the line
 c3w    - change the next 3 words with new text
 y2/foo - yank up to the second occurence of foo
-ggyG   - Yank the whole current buffer
-gg"+yG - Yank the whole current buffer to clipboard
 ```
 
 ##### Faster editing on a line
