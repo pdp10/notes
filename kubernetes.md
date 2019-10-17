@@ -154,8 +154,10 @@ kubectl config use-context <CONTEXT_NAME>
 # one context can have multiple namespaces. 
 # get the namespaces for the current context
 kubectl get namespaces
-# one can set the default namespace for a certain context
-kubectl config set-context $(kubectl config current-context) --namespace=NAMESPACE
+# change namespace within the same context
+kubectl config set-context --current --namespace=NAMESPACE
+# change context and namespace 
+kubectl config use-context CONTEXT --namespace=NAMESPACE
 
 # look at jobs running in K8s, displaying job metadata such as pipeline name, IR, etc., as  columns using `-L`  (kjobs)
 kubectl get jobs -L pipelineName -L sapientiaJobId -L interpretationRequestId -L projectId -L timestamp -L submitterName

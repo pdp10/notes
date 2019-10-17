@@ -11,6 +11,9 @@ git config --global merge.tool vimdiff
 git config --global --add difftool.prompt false
 
 git difftool <DEV_BRANCH> -- <FILE>
+
+# summarise the differences between current branch and dev
+git diff dev --stat 
 ```
 
 ### Connecting to GitHub with ssh

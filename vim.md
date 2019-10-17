@@ -271,23 +271,10 @@ dt" - remove everything until the ".
 ```
 
 
+### Buffers, Tabs, Sessions
 
-### Buffers, Tabs, Windows
-Vim users don't prefer buffers over tabs: they just use Vim as it was designed 
-and are perfectly comfortable with that design. Vim users have 2, 30 or 97 
-buffers loaded and are very happy they don't have to deal with spatial 
-distribution; when they need to compare two files or work in one part of the 
-current buffer while keeping another as a reference, Vim users use windows 
-because that's how they are meant to be used; when they need to work for a while 
-on a separate part of the project without messing with their current view, Vim 
-users load a brand new tab page.
-
-##### Working With Multiple Files
-You can also edit more than one text file at a time. Vim gives you the ability 
-to either split your screen to show more than one file at a time or you can 
-switch back and forth between documents. As with other functions, commands make 
-going between documents or buffers, as they're referred to with Vim, as simple 
-as a few keystrokes.
+##### Buffers
+Buffers are created to work with more files at the same time.
 ```
 :ls - list all opened buffers (also :buffers)
 :bn - Switch to next buffer
@@ -316,19 +303,29 @@ as a few keystrokes.
 <C-w> k - Moves your cursor to the window above the one you're in
 ```
 
-##### Tab Pages
-Just like any browser, you can also use tabs within Vim. This makes it 
-incredibly easy to switch between multiple files while you're making some code 
-changes instead of working in one single file, closing it, and opening a new 
-one. Below are some useful Vim commands for using tab pages:
+##### Tabs
+Tabs are the equivalent of workspaces. A tab can contain one or more buffers. 
+A new tab is loaded when one needs to work on a separate part of the project without 
+messing with the current view.
+Below are some useful Vim commands for using tab pages:
 ```
+:tabnew       - create a new tab
 :tabedit file - opens a new tab and will take you to edit "file"
+:tabclose     - close a single tab
+:tabs         - list all open tabs 
 gt            - move to the next tab 
 gT            - move to the previous tab 
 #gt           - move to a specific tab number 
                 (e.g. 2gt takes you to the second tab) 
-:tabs         - list all open tabs 
-:tabclose     - close a single tab
+```
+
+##### Sessions
+Tabs and buffers can be saved and restored later one.
+```
+:mksession ~/mysession.vim    - save the current session
+:source ~/mysession.vim       - open the saved session
+
+$ vim -S ~/mysession.vim      - open the saved session when vim is started
 ```
 
 ##### netrw - directory browser
