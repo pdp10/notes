@@ -1,4 +1,6 @@
-## Access DB within kubernetes 
+# Postgres
+
+### Access DB within kubernetes 
 ``` 
 # get DB credentials 
 kubectl get secrets
@@ -20,7 +22,7 @@ kubectl exec -it sapientia-web-xxxxxxx /bin/bash
 psql -h HOST -p PORT -U USER NAME
 ```
 
-## Postgres basic commands
+### Postgres basic commands
 ```
 \l,  \list       -- list databases
 \c,  \connect    -- switch database
