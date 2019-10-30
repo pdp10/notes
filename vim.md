@@ -19,6 +19,7 @@ you enter
 .               - Repeat the last change made in normal mode 
                  (e.g. after dw - delete word - press . to delete another word)
 @:              - repeat the last command-line change (a command invoked with :)
+:cd abs_path    - change the workdir to abs_path
 ```
 
 
@@ -241,6 +242,21 @@ d (or x)  - remove the comments
 
 ### Advanced Vim commands
 
+##### Faster editing on a line
+```
+0       - go to column 0
+^       - go to first character on the line
+$       - go to the last column
+g_      - go to the last character on the line
+fa      - go to next occurrence of the letter a on the line. , (resp. ;) will 
+          find the next (resp. previous) occurrence.
+t,      - go to just before the character ,.
+3fa     - find the 3rd occurrence of a on this line.
+F and T - like f and t but backward.
+
+dt" - remove everything until the ".
+```
+
 ##### Combination of an operator with positions: `start [operator] end`. 
 These are specific when the start and end position are known. E.g.:
 ```
@@ -261,12 +277,13 @@ mb     - create mark `b`
 `ay'b  - yank the content from position (L:C) of mark `a` to line of mark `b`
 ```
 
-#### Command: combination of an operator with a range: `:[range][operator]`.
+##### Command: combination of an operator with a range: `:[range][operator]`.
 Useful when the cursor is NOT in place. E.g.:
 ```
-:.,+4y  - yank from the current line and 4 lines below
-:-2,.y  - yank from two lines above and the current line
-:20,25d - delete lines 20-25
+:.,+4y   - yank from the current line and 4 lines below
+:-2,.y   - yank from two lines above and the current line
+:20,25d  - delete lines 20-25
+:5,13bd  - delete buffers 5-13
 ```
 
 ##### Combination of an operator with a count and motion: `operator [number] motion`. 
@@ -281,20 +298,6 @@ c3w    - change the next 3 words with new text
 y2/foo - yank up to the second occurence of foo
 ```
 
-##### Faster editing on a line
-```
-0       - go to column 0
-^       - go to first character on the line
-$       - go to the last column
-g_      - go to the last character on the line
-fa      - go to next occurrence of the letter a on the line. , (resp. ;) will 
-          find the next (resp. previous) occurrence.
-t,      - go to just before the character ,.
-3fa     - find the 3rd occurrence of a on this line.
-F and T - like f and t but backward.
-
-dt" - remove everything until the ".
-```
 
 
 ### Buffers, Windows, Tabs, Sessions

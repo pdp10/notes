@@ -97,12 +97,12 @@ docker system prune
 docker image prune
 ```
 
-###### These commands can be done for all containers: 
+###### These commands can be done for all containers:
 ```
+# stop and remove all docker containers
 docker stop $(docker ps -a -q)
 docker rm $(docker ps -a -q)
 ```
-
 
 
 

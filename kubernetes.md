@@ -57,7 +57,8 @@ kubectl describe nodes
 
 
 # get details about a pod. This gives details about pod history etc.
-kubectle describe pods POD_NAME
+# If a pod does not start correctly, run this command.
+kubectl describe pods POD_NAME
 
 
 # To update a deployment with the latest (dev) docker image: 
