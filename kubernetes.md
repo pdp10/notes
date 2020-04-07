@@ -25,6 +25,9 @@ kubectl get configmaps
 kubectl get configmaps CONFIG_MAP -o yaml
 # extract a field from a config map (requires jq)
 MY_VAR=$(kubectl get configmaps CONGIF_MAP -o json | jq -r .field1.field2.field2)
+# e.g. get docker image from deployment
+kubectl -n planet-express-37 get deployments sapientia-web -ojson | jq -r '.spec.template.spec.containers[0].image'
+
 
 
 # run command inside a pod (create and run a new job)
