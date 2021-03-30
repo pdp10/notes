@@ -37,6 +37,19 @@ piero@con-xps-12:~$ echo "NTQzMg==" | base64 --decode            => 5432        
 ```
 
 
+### create a database dump with schema only, recreate the database and restore the dump.
+
+```
+# dump with schema only
+pg_dump -U postgres -h 10.70.1.86 -v -Fc -s -f testdb.dump testdb
+# re-create db
+dropdb -U postgres -h 10.70.1.86 testdb
+createdb -U postgres -h 10.70.1.86 testdb
+# restore db with schema dump
+pg_restore -U postgres -h 10.70.1.86 -v -d testdb testdb.dump
+```
+
+
 ### Python SQLAlchemy
 
 # install python sqlalchemy and access python
