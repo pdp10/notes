@@ -1,0 +1,89 @@
+# Setup minio server / client 
+```
+sudo mkdir -p /mnt/data
+
+mkdir ${HOME}/minio ; cd ${HOME}/minio
+
+# server
+wget https://dl.min.io/server/minio/release/linux-amd64/minio
+chmod +x minio
+MINIO_ROOT_USER=minio MINIO_ROOT_PASSWORD=minio123 ./minio server /mnt/data
+
+# client (different shell)
+wget https://dl.min.io/client/mc/release/linux-amd64/mc
+chmod +x mc
+./mc alias set myminio/ http://127.0.0.1:9000 minio minio123
+
+
+# create folder / bucket
+google-chrome http://127.0.0.1:9000
+# username: `minio`, password: `minio123`
+# Then, create new path. Add r/w permissions
+```
+
+# Make new bucket and test with minio via s3 (see https://docs.min.io/docs/aws-cli-with-minio)
+```
+export AWS_SECRET_ACCESS_KEY='minio3'
+export AWS_SECRET_ACCESS_KEY='minio123'
+# make new bucket "dvc-test"
+aws --endpoint-url http://127.0.0.1:9000/ s3 mb s3://dvc-test
+# list objects in bucket
+aws --endpoint-url http://127.0.0.1:9000/ s3 ls dvc-test
+# delete bucket
+aws --endpoint-url http://127.0.0.1:9000/ s3 rb s3://dvc-test
+```
+
+
+# Setup dvc
+```
+# create virtualenv and install dvc
+cd ${HOME}
+python3 -m venv venv-dvc
+source venv-dvc/bin/activate
+# install dvc with s3 support
+pip install dvc[s3]
+
+# testing done on a branch called `dvc_test` in `database-reference-data` gitlab repo
+cd database-reference-data
+# initialise dvc
+dvc init
+
+# add mastermind-cnt1ge0-cnt2gt0-cnt3ge0-cnt2eqcnt3_snv_grch38_2021-01.vcf.gz (120MB) to the root of the repository
+dvc add mastermind-cnt1ge0-cnt2gt0-cnt3ge0-cnt2eqcnt3_snv_grch38_2021-01.vcf.gz
+git commit -am 'Add DVC files + large file'
+```
+
+
+Add storage
+```
+# AMAZON S3 (make sure that bucket exists). By default, DVC expects your AWS CLI is already configured. DVC will be using default AWS credentials file to access S3. To override some of these parameters, use the parameters described in dvc remote modify.
+dvc remote add -d myremote s3://mybucket/path
+
+# FOR THIS TEST, MINIO WAS USED. To communicate with a remote object storage that supports an S3 compatible API (e.g. Minio, DigitalOcean Spaces, IBM Cloud Object Storage etc.), configure the remote's endpointurl explicitly:
+dvc remote add -d myremote s3://dvc-test
+dvc remote modify myremote endpointurl http://127.0.0.1:9000
+dvc remote modify myremote access_key_id 'minio'
+dvc remote modify myremote secret_access_key 'minio123'
+
+Alternatively, store the following in .dvc/config:
+[core]
+    remote = myremote
+['remote "myremote"']
+    url = s3://dvc-test
+    endpointurl = http://127.0.0.1:9000
+    access_key_id = minio
+    secret_access_key = minio123
+
+
+# Test:
+dvc remote list 
+=> should print: myremote	s3://dvc-test
+
+
+git add .dvc/config
+git commit -m "Configure remote storage"
+
+
+dvc push --remote myremote
+
+
