@@ -1,4 +1,4 @@
-# Setup minio server / client 
+# Setup minio server / client
 ```
 sudo mkdir -p /mnt/data
 
@@ -34,7 +34,7 @@ aws --endpoint-url http://127.0.0.1:9000/ s3 rb s3://dvc-test
 ```
 
 
-# Setup dvc
+# Setup dvc (watch tutorial: https://www.youtube.com/watch?v=kLKBcPonMYw )
 ```
 # create virtualenv and install dvc
 cd ${HOME}
@@ -48,9 +48,14 @@ cd database-reference-data
 # initialise dvc
 dvc init
 
-# add mastermind-cnt1ge0-cnt2gt0-cnt3ge0-cnt2eqcnt3_snv_grch38_2021-01.vcf.gz (120MB) to the root of the repository
-dvc add mastermind-cnt1ge0-cnt2gt0-cnt3ge0-cnt2eqcnt3_snv_grch38_2021-01.vcf.gz
-git commit -am 'Add DVC files + large file'
+# add mastermind.vcf.gz (120MB) to the root of the repository
+dvc add mastermind.vcf.gz
+
+git add mastermind.vcf.gz.dvc .gitignore
+git commit -am 'Add raw DVC files'
+
+
+# Basically, *dvc file (containing the file digest) is store on github/gitlab. This file also contains the location of the actual file which is stored in our preferred storage
 ```
 
 
@@ -60,6 +65,7 @@ Add storage
 dvc remote add -d myremote s3://mybucket/path
 
 # FOR THIS TEST, MINIO WAS USED. To communicate with a remote object storage that supports an S3 compatible API (e.g. Minio, DigitalOcean Spaces, IBM Cloud Object Storage etc.), configure the remote's endpointurl explicitly:
+# -d : default
 dvc remote add -d myremote s3://dvc-test
 dvc remote modify myremote endpointurl http://127.0.0.1:9000
 dvc remote modify myremote access_key_id 'minio'
@@ -76,14 +82,37 @@ Alternatively, store the following in .dvc/config:
 
 
 # Test:
-dvc remote list 
-=> should print: myremote	s3://dvc-test
+dvc remote list
+# should print: myremote	s3://dvc-test
 
-
+# add dvc config file to github/gitlab
 git add .dvc/config
 git commit -m "Configure remote storage"
+```
 
-
+# dvc ops
+```
+# PUSH
 dvc push --remote myremote
+# Test:
+# See file in http://127.0.0.1:9000/minio/dvc-test .
+# NOTE the file pushed with dvc is saved in a directory. File and directory are named after the MD5 digest of the actual file.
+```
 
+```
+# PULL
+rm mastermind.vcf.gz
+dvc pull
+# the file reappear
+```
 
+```
+# MODIFY
+# modify mastermind.vcf.gz
+dvc add mastermind.vcf.gz
+git add mastermind.vcf.gz.dvc
+git commit -m "mastermind new version"
+git push origin dvc_test
+dvc push -r myremote
+# See file in http://127.0.0.1:9000/minio/dvc-test . We still keep the old version, but we now also have a new version
+```
