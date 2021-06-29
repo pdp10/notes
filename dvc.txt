@@ -103,7 +103,9 @@ dvc push --remote myremote
 # PULL
 rm mastermind.vcf.gz
 dvc pull
-# the file reappear
+# the file reappears
+# to pull one single file:
+dvc pull mastermind.vcf.gz
 ```
 
 ```
@@ -115,4 +117,47 @@ git commit -m "mastermind new version"
 git push origin dvc_test
 dvc push -r myremote
 # See file in http://127.0.0.1:9000/minio/dvc-test . We still keep the old version, but we now also have a new version
+```
+
+```
+# list files
+dvc list https://gitlab.services.congenica.net/congenica/database-reference-data
+# quick way to get a file
+dvc get https://gitlab.services.congenica.net/congenica/database-reference-data mastermind.vcf.gz
+# best way to get a file as this allows more tracking. In particular, the generated dvc file for our file will contain
+# the source location (e.g. where it comes from)
+dvc import https://gitlab.services.congenica.net/congenica/database-reference-data mastermind.vcf.gz
+# then one can update this new version using:
+dvc update mastermind.vcf.gz.dvc
+```
+
+```
+# dvc pipelines
+# These can be executed either using `dvc run` or via definition of a yaml file.
+# e.g. dvc.yaml . Execute using `dvc repro`
+stages:
+  get_data:
+    cmd: python get_data.py
+    deps:
+    - get_data.py
+    outs:
+    - data_raw.csv
+  process:
+    cmd: python process_data.py
+    deps:
+    - process_data.py
+    - data_raw.csv
+    outs:
+    - data_processed.csv
+  train:
+    cmd: python train.py
+    deps:
+    - train.py
+    - data_processed.csv
+    outs:
+    - by_region.png
+
+
+
+
 ```
