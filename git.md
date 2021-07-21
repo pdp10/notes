@@ -79,6 +79,20 @@ git submodule init
 git submodule update
 ```
 
+## Commits and history
+```
+# get commits from git history
+git log2
+git checkout <COMMIT>
+# check the file of interest
+
+# If you want to create a new branch to retain commits you create, you may do so (now or later) by using -c with the switch command. Example:
+git switch -c <new-branch-name>
+
+# otherwise, to return to the previous branch:
+git switch -
+```
+
 ### Startup
 ```
 # clone master
