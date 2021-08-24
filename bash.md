@@ -35,6 +35,16 @@ grep --include=*.py -rnw '.' -e "DEF"
 ```
 
 
+### ssh
+```bash
+sudo apt-get install sshfs
+sudo modprobe fuse
+mkdir ~/remote_ssh_dir
+
+sshfs dataaccess.node.net:/home/<USER> /home/<USER>/remote_ssh_dir
+```
+
+
 ### conda
 ```bash
 # install miniconda (note: py27 can be installed with miniconda3)
