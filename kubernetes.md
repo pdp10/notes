@@ -1,6 +1,5 @@
 # Kubernetes
 
-
 ### Basic commands
 
 ```bash

@@ -5,7 +5,7 @@
 # list images
 docker images (or docker image ls)
 
-# list containers 
+# list containers
 docker ps (or docker container ls)
 ```
 
