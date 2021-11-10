@@ -3,6 +3,8 @@
 ### grep, find, sed
 
 ```bash
+# Use grep -A 3 to show the match and the 3 lines folling the match.
+
 #Search for a pattern in files in the current directory recursively
 grep --include=*.py -rnw '.' -e 'pattern'
 
