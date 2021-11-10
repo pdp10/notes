@@ -66,11 +66,13 @@ kdb() {
     local _container="sapientia-web"
     local _app="$( k get deployments ${_container} -ojson | jq '.metadata.labels.app' | tr -d '\"')"
     local _pod="$( k get pods -l app=${_app} --no-headers -o custom-columns=':metadata.name' )"
-    local _db_host="$( k exec -it ${_pod} -c ${_container} -- env | grep SAPIENTIA_DB_HOST | cut -d= -f2 | tr -d '\r')"
-    local _db_port="$( k exec -it ${_pod} -c ${_container} -- env | grep SAPIENTIA_DB_PORT | cut -d= -f2 | tr -d '\r')"
-    local _db_name="$( k exec -it ${_pod} -c ${_container} -- env | grep SAPIENTIA_DB_NAME | cut -d= -f2 | tr -d '\r')"
-    local _db_user="$( k exec -it ${_pod} -c ${_container} -- env | grep SAPIENTIA_DB_USER | cut -d= -f2 | tr -d '\r')"
-    local _db_pwd="$( k exec -it ${_pod} -c ${_container} -- env | grep SAPIENTIA_DB_PASSWORD | cut -d= -f2 | tr -d '\r')"
+
+    local _pod_env="$( k exec -it ${_pod} -c ${_container} -- env)"
+    local _db_host="$( echo "${_pod_env}" | grep SAPIENTIA_DB_HOST | cut -d= -f2 | tr -d '\r')"
+    local _db_port="$( echo "${_pod_env}" | grep SAPIENTIA_DB_PORT | cut -d= -f2 | tr -d '\r')"
+    local _db_name="$( echo "${_pod_env}" | grep SAPIENTIA_DB_NAME | cut -d= -f2 | tr -d '\r')"
+    local _db_user="$( echo "${_pod_env}" | grep SAPIENTIA_DB_USER | cut -d= -f2 | tr -d '\r')"
+    local _db_pwd="$( echo "${_pod_env}" | grep SAPIENTIA_DB_PASSWORD | cut -d= -f2 | tr -d '\r')"
     #echo "PGPASSWORD=${_db_pwd} psql -U ${_db_user} -h ${_db_host} -d ${_db_name}" > /dev/stderr
     k exec -it ${_pod} -c ${_container} -- bash -c "PGPASSWORD=${_db_pwd} psql -U ${_db_user} -h ${_db_host} -d ${_db_name} -p ${_db_port}"
 }
