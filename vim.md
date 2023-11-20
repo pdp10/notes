@@ -325,7 +325,8 @@ Buffers are created to work with more files at the same time.
 Windows are views or containers of buffers.
 One buffer can be contained in more windows.
 ```
-<C-w> | - Maximise the current window
+<C-w> | - Maximise the current window on vertical split
+<C-w> _ - Maximise the current window on horizontal split
 <C-w> = - Resize windows to equal dimensions, automatically
 <C-w> s - Split windows horizontally
 <C-w> v - Split windows vertically

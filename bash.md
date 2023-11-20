@@ -14,6 +14,9 @@ find . -type f -name "*.py" | xargs sed -i 's/foo/bar/g'
 
 # Dry-run. p:print-only
 find . -type f -name "*.py" | xargs sed 's/foo/bar/gp'
+
+# replace using grep
+grep -rl foo . | xargs sed -i 's/foo/bar/g'
 ```
 
 Here is a workflow to find, check, and replace whole word strings in files 

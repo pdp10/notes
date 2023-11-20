@@ -92,6 +92,11 @@ docker rm <CONTAINER_ID>
 docker system prune
 ```
 
+###### Remove dangling none docker images
+```
+docker rmi $(docker images -f "dangling=true" -q)
+```
+
 ###### Remove unused dangling images
 ```
 docker image prune

@@ -3,7 +3,7 @@
 # more ls alias
 alias lt='ls -larth'
 
-alias python3=python3.6
+alias python3=python3.10
 
 # set the default editor
 export VISUAL=nvim
@@ -11,7 +11,15 @@ export EDITOR="$VISUAL"
 alias vim="$VISUAL"
 alias vi="$VISUAL"
 
-alias aws_connect='/usr/local/bin/aws ecr get-login-password --region eu-west-1 | docker login --password-stdin --username AWS 144563655722.dkr.ecr.eu-west-1.amazonaws.com'
+
+alias aws_sso_login_dev='aws sso login --profile dev-sso'
+alias aws_sso_login_psga='aws sso login --profile psga-dev'
+alias aws_sso_login_infosci='aws sso login --profile infosci-sso'
+
+alias aws_ecr_login='/usr/local/bin/aws ecr get-login-password --region eu-west-1 | docker login --password-stdin --username AWS 144563655722.dkr.ecr.eu-west-1.amazonaws.com'
+alias aws_ecr_login_psga='/usr/local/bin/aws ecr get-login-password --profile psga-dev --region eu-west-2 | docker login --password-stdin --username AWS 566277102435.dkr.ecr.eu-west-2.amazonaws.com'
+
+export AWS_DEFAULT_PROFILE=dev-sso
 
 # -A to copy your credentials over
 alias scp='scp -F ~/.ssh/config'
