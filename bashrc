@@ -1,18 +1,29 @@
 # Useful functions to add to .bashrc
 
-# more ls alias
+# git (e.g. git co -> git checkout)
+git config --global alias.co checkout
+git config --global alias.nb 'checkout -b'
+git config --global alias.br branch
+git config --global alias.ci commit
+git config --global alias.st status
+git config --global alias.unstage 'reset HEAD --'
+git config --global alias.last 'log -1 HEAD'
+
+
+# ls
 alias lt='ls -larth'
 
-alias python=python3.10
+# python
+alias python=python3.12
 
 # set the default editor
-export VISUAL=nvim
+export VISUAL=vim
 export EDITOR="$VISUAL"
 alias vim="$VISUAL"
 alias vi="$VISUAL"
 
 
-export PATH="~/.local/bin:$PATH"
+export PATH="$HOME/bin:$HOME/.local/bin:$PATH"
 
 # Load pyenv automatically by appending
 # the following to 
@@ -27,20 +38,20 @@ eval "$(pyenv virtualenv-init -)"
 
 
 
-alias aws_sso_login_dev='aws sso login --profile dev-sso'
+# alias aws_sso_login_dev='aws sso login --profile dev-sso'
 
-alias aws_ecr_login='/usr/local/bin/aws ecr get-login-password --region eu-west-1 | docker login --password-stdin --username AWS ID.dkr.ecr.eu-west-1.amazonaws.com'
+# alias aws_ecr_login='/usr/local/bin/aws ecr get-login-password --region eu-west-1 | docker login --password-stdin --username AWS ID.dkr.ecr.eu-west-1.amazonaws.com'
 
-export AWS_DEFAULT_PROFILE=dev-sso
+# export AWS_DEFAULT_PROFILE=dev-sso
 
 # -A to copy your credentials over
 alias scp='scp -F ~/.ssh/config'
 alias ssh='ssh -A'
 
 # kubernetes
-source <(kubectl completion bash)
+#source <(kubectl completion bash)
 alias k=kubectl
-complete -F __start_kubectl k
+#complete -F __start_kubectl k   # not available on mac os x
 alias kctx='k config get-contexts'
 alias kns='k get namespaces'
 alias kcm='k get configmaps'
@@ -87,4 +98,5 @@ docker_tags() {
     # return the docker tags for a certain image (e.g. sapientia-web)
     /usr/local/bin/aws ecr describe-images --registry-id ID --repository-name REPO/dev/$1 --region REGION --query 'sort_by(imageDetails,& imagePushedAt)[]'
 }
+
 
