@@ -1,5 +1,6 @@
 # Useful functions to add to .bashrc
 
+
 # git (e.g. git co -> git checkout)
 git config --global alias.co checkout
 git config --global alias.nb 'checkout -b'
@@ -8,10 +9,20 @@ git config --global alias.ci commit
 git config --global alias.st status
 git config --global alias.unstage 'reset HEAD --'
 git config --global alias.last 'log -1 HEAD'
+# add git branch to shell
+parse_git_branch() {
+    git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ (\1)/'
+}
+export PS1="\e[1;32m\u@\h\e[m:\e[1;36m\w\e[m\e[0;33m\$(parse_git_branch)\e[m$ "
 
 
-# ls
+# main aliases and colors
+alias egrep='egrep --color=auto'
+alias fgrep='fgrep --color=auto'
+alias grep='grep --color=auto'
+alias la='ls -A'
 alias lt='ls -larth'
+alias ls='ls --color=auto'
 
 # python
 alias python=python3.12
@@ -26,7 +37,7 @@ alias vi="$VISUAL"
 export PATH="$HOME/bin:$HOME/.local/bin:$PATH"
 
 # Load pyenv automatically by appending
-# the following to 
+# the following to
 # ~/.bash_profile if it exists, otherwise ~/.profile (for login shells)
 # and ~/.bashrc (for interactive shells) :
 export PYENV_ROOT="$HOME/.pyenv"
