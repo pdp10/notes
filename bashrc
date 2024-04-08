@@ -13,7 +13,7 @@ git config --global alias.last 'log -1 HEAD'
 parse_git_branch() {
     git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ (\1)/'
 }
-export PS1="\e[1;32m\u@\h\e[m:\e[1;36m\w\e[m\e[0;33m\$(parse_git_branch)\e[m$ "
+export PS1="\\[\e[1;32m\u@\h\e[m:\e[1;36m\w\e[m\e[0;33m\$(parse_git_branch)\e[m$ "
 
 
 # main aliases and colors
