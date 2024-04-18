@@ -13,8 +13,12 @@ git config --global alias.last 'log -1 HEAD'
 parse_git_branch() {
     git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ (\1)/'
 }
-export PS1="\\[\e[1;32m\u@\h\e[m:\e[1;36m\w\e[m\e[0;33m\$(parse_git_branch)\e[m$ "
+# colours: https://misc.flogisoft.com/bash/tip_colors_and_formatting
+export PS1="\[\e[92m\]\u@\h:\[\e[96m\]\w\[\e[93m\]\$(parse_git_branch)\[\e[37m\]\$ "
 
+if [ -f $(brew --prefix)/etc/bash_completion ]; then
+    . $(brew --prefix)/etc/bash_completion
+fi
 
 # main aliases and colors
 alias egrep='egrep --color=auto'
@@ -25,10 +29,10 @@ alias lt='ls -larth'
 alias ls='ls --color=auto'
 
 # python
-alias python=python3.12
+#alias python=python3.12
 
 # set the default editor
-export VISUAL=vim
+export VISUAL=nvim
 export EDITOR="$VISUAL"
 alias vim="$VISUAL"
 alias vi="$VISUAL"
@@ -48,8 +52,18 @@ eval "$(pyenv init -)"
 eval "$(pyenv virtualenv-init -)"
 
 
-
-# alias aws_sso_login_dev='aws sso login --profile dev-sso'
+# aws sso logins
+alias aws_sso_login_core_internal_genome_data_prod_ro='aws sso login --profile core_internal_genome_data_prod_ro'
+alias aws_sso_login_core_shared='aws sso login --profile core_shared'
+alias aws_sso_login_genie_uat_admin='aws sso login --profile genie_uat_admin'
+alias aws_sso_login_rdp_dev_admin='aws sso login --profile research_data_products_dev_admin'
+alias aws_sso_login_rdp_dev_ro='aws sso login --profile research_data_products_dev_ro'
+alias aws_sso_login_rdp_preprod_admin='aws sso login --profile research_data_products_preprod_admin'
+alias aws_sso_login_rdp_preprod_ro='aws sso login --profile research_data_products_preprod_ro'
+alias aws_sso_login_rdp_prod_admin='aws sso login --profile research_data_products_prod_admin'
+alias aws_sso_login_rdp_prod_ro='aws sso login --profile research_data_products_prod_ro'
+alias aws_sso_login_rdp_test_admin='aws sso login --profile research_data_products_test_admin'
+alias aws_sso_login_rdp_test_ro='aws sso login --profile research_data_products_test_ro'
 
 # alias aws_ecr_login='/usr/local/bin/aws ecr get-login-password --region eu-west-1 | docker login --password-stdin --username AWS ID.dkr.ecr.eu-west-1.amazonaws.com'
 
