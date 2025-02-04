@@ -31,8 +31,10 @@ alias la='ls -A'
 alias lt='ls -larth'
 alias ls='ls --color=auto'
 
+alias sed='gsed'
+
 # python
-#alias python=python3.12
+#alias python=/Users/pieropezze/.pyenv/versions/3.12.4/bin/python
 
 # set the default editor
 export VISUAL=nvim
@@ -56,17 +58,16 @@ eval "$(pyenv virtualenv-init -)"
 
 
 # aws sso logins
-alias aws_sso_login_core_internal_genome_data_prod_ro='aws sso login --profile core_internal_genome_data_prod_ro'
-alias aws_sso_login_core_shared='aws sso login --profile core_shared'
-alias aws_sso_login_genie_uat_admin='aws sso login --profile genie_uat_admin'
-alias aws_sso_login_rdp_dev_admin='aws sso login --profile research_data_products_dev_admin'
-alias aws_sso_login_rdp_dev_ro='aws sso login --profile research_data_products_dev_ro'
-alias aws_sso_login_rdp_preprod_admin='aws sso login --profile research_data_products_preprod_admin'
-alias aws_sso_login_rdp_preprod_ro='aws sso login --profile research_data_products_preprod_ro'
-alias aws_sso_login_rdp_prod_admin='aws sso login --profile research_data_products_prod_admin'
-alias aws_sso_login_rdp_prod_ro='aws sso login --profile research_data_products_prod_ro'
-alias aws_sso_login_rdp_test_admin='aws sso login --profile research_data_products_test_admin'
-alias aws_sso_login_rdp_test_ro='aws sso login --profile research_data_products_test_ro'
+aws_sso_login() {
+  local _profile=$1
+  aws sso login --profile ${_profile}
+  export AWS_PROFILE=${_profile}
+}
+aws_sso_login_in_docker_container() {
+  local _profile=$1
+  aws sso login --profile ${_profile} --use-device-code --no-browser
+  export AWS_PROFILE=${_profile}
+}
 
 # alias aws_ecr_login='/usr/local/bin/aws ecr get-login-password --region eu-west-1 | docker login --password-stdin --username AWS ID.dkr.ecr.eu-west-1.amazonaws.com'
 
